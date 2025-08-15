@@ -17,9 +17,11 @@ async def get_rag_response(
     try:
         llm = gemini_service.get_llm_model()
         embeddings = gemini_service.get_embeddings_model(output_dimensionality=768)
+        
+        # We are now getting the top 4 most relevant documents to improve retrieval
         retriever = pinecone_service.get_vector_store(
             embeddings=embeddings
-        ).as_retriever()
+        ).as_retriever(search_kwargs={"k": 4})
         
         prompt = ChatPromptTemplate.from_template("""
         Answer the following question based only on the provided context.
