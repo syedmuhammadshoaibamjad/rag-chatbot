@@ -20,7 +20,7 @@ async def get_rag_response(
         
         retriever = pinecone_service.get_vector_store(
             embeddings=embeddings
-        ).as_retriever(search_kwargs={"k": 6})
+        ).as_retriever(search_kwargs={"k": 5})
         
         prompt = ChatPromptTemplate.from_template("""
         Answer the following question based only on the provided context.
